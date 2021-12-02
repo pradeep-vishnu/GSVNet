@@ -48,10 +48,13 @@ Move the downloaded weights to weights/
 
 ## Preparation of dataset - Cityscapes
 
-Please download the dataset from the officit site - [Download](https://www.cityscapes-dataset.com/)
+Please download the dataset from the official site - [Download](https://www.cityscapes-dataset.com/)
+
+This dataset requires you to download the source data manually:
+You have to download files from https://www.cityscapes-dataset.com/login/ (This dataset requires registration). For basic config file is written for 'leftImg8bit_trainvaltest.zip' and 'gtFine_trainvaltest.zip'. Other configs do require additional files.
 
 ```
-data_path = './data/leftImg8bit_sequence_trainvaltest_2K/'
+data_path = './data/cityscapes'
 ```
 
 Modify the data_path in config/cityscapes.py
