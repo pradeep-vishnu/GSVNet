@@ -57,11 +57,15 @@ For downloading using command lines, in case you have a server, as shared by [ce
 
 Specify your username and password in the below cmd to login
 
-```wget --keep-session-cookies --save-cookies=cookies.txt --post-data 'username=myusername&password=mypassword&submit=Login' https://www.cityscapes-dataset.com/login/ ```
+```
+wget --keep-session-cookies --save-cookies=cookies.txt --post-data 'username=myusername&password=mypassword&submit=Login' https://www.cityscapes-dataset.com/login/
+```
 
 and provide the packageID of the required zip file. 
 
-```wget --load-cookies cookies.txt --content-disposition https://www.cityscapes-dataset.com/file-handling/?packageID=1```
+```
+wget --load-cookies cookies.txt --content-disposition https://www.cityscapes-dataset.com/file-handling/?packageID=1
+```
 
 Hint : You can get the package id from the download link of the file you need to download. In our case, for leftImg8bit_sequence_trainvaltest.zip it is packageID=14. 
 
