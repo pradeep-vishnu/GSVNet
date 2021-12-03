@@ -48,14 +48,14 @@ Move the downloaded weights to weights/
 
 ## Preparation of dataset - Cityscapes
 
-Please download the dataset from the official site - [Download](https://www.cityscapes-dataset.com/)
+Please download the dataset from the official site. 
 
 This dataset requires you to download the source data manually:
-You have to download files from https://www.cityscapes-dataset.com/login/ (This dataset requires registration). The config file is written for leftImg8bit_sequence_trainvaltest.zip. Other files do require additional config.
+You have to download files from - [Download](https://www.cityscapes-dataset.com/) (This dataset requires registration). The config file is written for leftImg8bit_sequence_trainvaltest.zip. Other files do require additional config.
 
-For downloading using command lines, in case you have a server, as shared by [cemsaz] (https://github.com/cemsaz/city-scapes-script), 
+Aternatively, For downloading using command line, as shared by [cemsaz](https://github.com/cemsaz/city-scapes-script), 
 
-Specify your username and password in the below cmd to login
+Use below cmd by specifying your username and password,
 
 ```
 wget --keep-session-cookies --save-cookies=cookies.txt --post-data 'username=myusername&password=mypassword&submit=Login' https://www.cityscapes-dataset.com/login/
