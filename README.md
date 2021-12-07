@@ -51,7 +51,7 @@ Move the downloaded weights to weights/
 Please download the dataset from the official site. 
 
 This dataset requires you to download the source data manually:
-You have to download files from - [Download](https://www.cityscapes-dataset.com/) (This dataset requires registration). The config file is written for leftImg8bit_sequence_trainvaltest.zip. Other files do require additional config.
+You have to download files from - [Download](https://www.cityscapes-dataset.com/) (This dataset requires registration). The config file is written for leftImg8bit_sequence_trainvaltest.zip and the fine annotations files from gtFine_trainvaltest.zip. To use other datasets, you require additional configa, which are not included.
 
 Aternatively, For downloading using command line, as shared by [cemsaz](https://github.com/cemsaz/city-scapes-script), 
 
@@ -67,7 +67,7 @@ and provide the packageID of the required zip file.
 wget --load-cookies cookies.txt --content-disposition https://www.cityscapes-dataset.com/file-handling/?packageID=1
 ```
 
-Hint : You can get the package id from the download link of the file you need to download. In our case, for leftImg8bit_sequence_trainvaltest.zip it is packageID=14. 
+Hint : You can get the package id from the download link of the file you need to download. In our case, for leftImg8bit_sequence_trainvaltest.zip and gtFine_trainvaltest.zip, it is packageID=14 & 1. 
 
 ```
 data_path = './data/cityscapes'
