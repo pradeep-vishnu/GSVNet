@@ -9,3 +9,4 @@ tensorboardX
 torch>=1.1.0
 torchvision>=0.2.1
 tqdm
+opencv-python
