@@ -163,7 +163,7 @@ class Trainer(object):
 
         if args.dataset.find("cityscapes") >= 0:
             self.dataset_config = cityscapes_config()
-        elif args.dataset_name == "camvid":
+        elif args.dataset == "camvid":
             self.dataset_config = camvid_config()
         else:
             raise NotImplementedError("Trainer dataset %s is not registered into the system" % args.dataset)
