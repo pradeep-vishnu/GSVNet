@@ -62,6 +62,7 @@ class GSVNet_Trainer(Trainer):
 
     def _val_img_input_transform(self, args):
         if self.args.segnet == 'bisenet':
+            self.resume_path = self.bisenet_resume_path
             mean_std = ([0.406, 0.456, 0.485], [0.225, 0.224, 0.229])
             img_transform = standard_transforms.Compose([
                 FlipChannels(),
@@ -69,6 +70,7 @@ class GSVNet_Trainer(Trainer):
                 standard_transforms.Normalize(*mean_std)
             ])
         elif self.args.segnet == 'swiftnet':
+            self.resume_path = self.swnet_resume_path
             mean_std = ([72.3, 82.90, 73.15],[47.73, 48.49, 47.67])
             img_transform = standard_transforms.Compose([
                 FlipChannels(),
