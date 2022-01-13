@@ -32,4 +32,4 @@ class cityscapes_config(object):
     bisenet_resume_path = './weights/gsvnet_bisenet_r18.tar'
     swnet_resume_path = './weights/gsvnet_swnet_r18.tar'
     optical_flow_network_path = './weights/flownet.pth.tar'
-    data_path = ' ' # put your data path here
+    data_path = './data/cityscapes' # put your data path here
