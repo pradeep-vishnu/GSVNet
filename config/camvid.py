@@ -23,8 +23,8 @@ class camvid_config(object):
     bsnet_weight_path = './weights/cityscapes-bisenet-R18.pth'
 
 
-    #resume_path = './weights/gsvnet_bisenet_r18.tar'
-    resume_path = './weights/gsvnet_swnet_r18.tar'
+    bisenet_resume_path = './weights/gsvnet_bisenet_r18.tar'
+    swnet_resume_path = './weights/gsvnet_swnet_r18.tar'
 
     optical_flow_network_path = './weights/flownet.pth.tar'
     data_path = '' #put your data path here
