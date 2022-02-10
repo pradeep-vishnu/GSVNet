@@ -34,7 +34,8 @@ parser.add_argument('--use-crop', type=str2bool, default='1', help='to use crop 
 parser.add_argument('--early-stop', type=str2bool, help="run 5 iters each epoch(for testing) ", default=0)
 
 # Dataset
-parser.add_argument('--dataset',type=str, help="Options: cityscapes_2k/camvid", default="cityscapes_2k")
+parser.add_argument('--dataset',type=str, help="Options: cityscapes/camvid/carla", default="cityscapes")
+parser.add_argument('--valdataset',type=str, help="Options: cityscapes_2k/camvid/carla", default="same")
 parser.add_argument('--multi-step', nargs='+', help="(Fixed)", type=int, default=[1,2,3,4])#[1,2,3,4])
 parser.add_argument('--eval-multi-step', nargs='+', help="the number of algorigtm step", type=int, default=[1,2,3,4])#[1,2,3,4])
 parser.add_argument('--eval-single',type=str2bool, help="Evaluate inference on step 0. If you want to evaluate at certain interval, put 0. By default is 1", default='1')

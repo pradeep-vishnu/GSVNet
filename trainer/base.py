@@ -9,8 +9,10 @@ from util.general import init_random_seed, pretty_print, gettime
 #from trainer.dataset import build_trainer_dataset
 from config.cityscapes import cityscapes_config
 from config.camvid import camvid_config
+from config.carla import carla_config
 from dataset.cityscapes import cityscape_dataset
 from dataset.camvid import camvid_dataset
+from dataset.carla import carla_dataset
 try:
     from apex.parallel import DistributedDataParallel, SyncBatchNorm
 except ImportError:
@@ -82,25 +84,37 @@ class Trainer(object):
 
     def init_dataset(self, args):
         train_dataset = []
-        if args.dataset == 'camvid':
-            dataset_used = camvid_dataset
-        else:
-            dataset_used = cityscape_dataset
+        if args.dataset == 'camvid' and args.valdataset =='same':
+            dataset_train = camvid_dataset
+            dataset_val= camvid_dataset
+        if args.dataset == 'carla' and args.valdataset =='same':
+            dataset_train = carla_dataset
+            dataset_val = carla_dataset            
+        if args.dataset == 'cityscapes' and args.valdataset =='same':
+            dataset_train = cityscape_dataset
+            dataset_val = cityscape_dataset
+        if args.dataset == 'cityscapes' and args.valdataset =='carla':
+            dataset_train = cityscape_dataset
+            dataset_val= carla_dataset
+        if args.dataset == 'carla' and args.valdataset =='cityscapes':
+            dataset_train = carla_dataset
+            dataset_val = cityscape_dataset            
+
         for step in args.multi_step:
             train_dataset.append(
-            dataset_used(config = self.dataset_config, mode = 'train', interval = step, \
+            dataset_train(config = self.traindataset_config, mode = 'train', interval = step, \
             label_transform = standard_transforms.ToTensor(), img_transform = self.image_transform, bi_direction = self.bi_direction)
             )
         val_dataset = []
         if args.eval_single:
             #mode='video' or mode='val'
             val_dataset.append(
-            dataset_used(config = self.dataset_config, mode = 'val', interval = 0, \
+            dataset_val(config = self.valdataset_config, mode = 'val', interval = 0, \
             label_transform = standard_transforms.ToTensor(), img_transform = self.val_image_transform, bi_direction = self.bi_direction)
             )
         for step in args.eval_multi_step:
             val_dataset.append(
-            dataset_used(config = self.dataset_config, mode = 'val', interval = step, \
+            dataset_val(config = self.valdataset_config, mode = 'val', interval = step, \
             label_transform = standard_transforms.ToTensor(), img_transform = self.val_image_transform, bi_direction = self.bi_direction)
             )
         return train_dataset, val_dataset
@@ -160,14 +174,26 @@ class Trainer(object):
 
         # Setup Dataset
         print("=> rank %i: generating dataset %s" % (self.local_rank, args.dataset))
-
-        if args.dataset.find("cityscapes") >= 0:
-            self.dataset_config = cityscapes_config()
-        elif args.dataset == "camvid":
-            self.dataset_config = camvid_config()
+        
+        if args.dataset == 'cityscapes' and args.valdataset == 'same':
+            self.traindataset_config = cityscapes_config()
+            self.valdataset_config = cityscapes_config()
+        elif args.dataset == "carla" and args.valdataset == 'same':
+            self.traindataset_config = carla_config()
+            self.valdataset_config = carla_config()
+        elif args.dataset == "camvid"and args.valdataset == 'same':
+            self.traindataset_config = camvid_config() 
+            self.valdataset_config = camvid_config() 
+        elif args.dataset == "carla" and args.valdataset == 'cityscapes':
+            self.traindataset_config = carla_config()
+            self.valdataset_config = cityscapes_config()
+        elif args.dataset == "cityscapes"and args.valdataset == 'carla':
+            self.traindataset_config = cityscapes_config()
+            self.valdataset_config = carla_config()
         else:
             raise NotImplementedError("Trainer dataset %s is not registered into the system" % args.dataset)
         
+        self.dataset_config = self.traindataset_config
         # Dataset and model weight configuration
         self.color_classes = self.dataset_config.color_classes
         self.num_classes = self.dataset_config.num_classes
@@ -176,7 +202,8 @@ class Trainer(object):
         self.swnet_resume_path = self.dataset_config.swnet_resume_path
         self.bisenet_resume_path = self.dataset_config.bisenet_resume_path
         self.optical_flow_network_path = self.dataset_config.optical_flow_network_path
-        self.data_path = self.dataset_config.data_path
+        self.train_data_path = self.traindataset_config.data_path      
+        self.val_data_path = self.valdataset_config.data_path
 
         self.image_transform, self.val_image_transform = self._img_input_transform(args), self._val_img_input_transform(args)
         self.train_dataset, self.val_dataset = self.init_dataset(args)

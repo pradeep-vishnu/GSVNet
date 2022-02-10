@@ -16,6 +16,7 @@ class camvid_dataset(Dataset):
             interval = -interval
         else:
             self.reverse = False
+ 
         self.interval = interval
         self.img_transform = img_transform
         self.label_transform = label_transform

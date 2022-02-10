@@ -42,6 +42,7 @@ class GSVNet_Trainer(Trainer):
     def _img_input_transform(self, args):
         if self.args.segnet == 'bisenet':
             mean_std = ([0.406, 0.456, 0.485], [0.225, 0.224, 0.229])
+            self.resume_path = self.bisenet_resume_path
             img_transform = standard_transforms.Compose([
                 standard_transforms.ColorJitter(),
                 FlipChannels(),
@@ -50,6 +51,7 @@ class GSVNet_Trainer(Trainer):
             ])
         elif self.args.segnet == 'swiftnet':
             mean_std = ([72.3, 82.90, 73.15],[47.73, 48.49, 47.67])
+            self.resume_path = self.swnet_resume_path
             img_transform = standard_transforms.Compose([
                 standard_transforms.ColorJitter(),
                 FlipChannels(),
@@ -62,7 +64,6 @@ class GSVNet_Trainer(Trainer):
 
     def _val_img_input_transform(self, args):
         if self.args.segnet == 'bisenet':
-            self.resume_path = self.bisenet_resume_path
             mean_std = ([0.406, 0.456, 0.485], [0.225, 0.224, 0.229])
             img_transform = standard_transforms.Compose([
                 FlipChannels(),
@@ -70,7 +71,6 @@ class GSVNet_Trainer(Trainer):
                 standard_transforms.Normalize(*mean_std)
             ])
         elif self.args.segnet == 'swiftnet':
-            self.resume_path = self.swnet_resume_path
             mean_std = ([72.3, 82.90, 73.15],[47.73, 48.49, 47.67])
             img_transform = standard_transforms.Compose([
                 FlipChannels(),
@@ -170,6 +170,8 @@ class GSVNet_Trainer(Trainer):
 
     def forward(self, images, loader_idx, args, is_train = False, transform = None, img_id = 0):
         previous_pred = None
+        #use scale_factor = 8 
+        scale = 8 
         for ref_idx, image in enumerate(images):
             image = image.cuda(non_blocking = True)
 
@@ -189,8 +191,8 @@ class GSVNet_Trainer(Trainer):
                 
                 with torch.no_grad():
                     pred_ref = self.segnet(low_res_image)
-                #resize to 1/8
-                pred_ref = self.bilinear(pred_ref, (height//8, width//8))
+                #resize image
+                pred_ref = self.bilinear(pred_ref, (height//scale, width//scale))
                 
                 previous_image = image
                 previous_pred = pred_ref
@@ -199,8 +201,8 @@ class GSVNet_Trainer(Trainer):
             else:
                 pred_ref = previous_pred
     
-            target_image_lowres = self.bilinear(image, (height//8, width//8))
-            previous_image_lowres = self.bilinear(previous_image, (height//8, width//8))
+            target_image_lowres = self.bilinear(image, (height//scale, width//scale))
+            previous_image_lowres = self.bilinear(previous_image, (height//scale, width//scale))
             
             if self.args.optical_flow_network == 'light':
                 input_flow = torch.cat([target_image_lowres, previous_image_lowres], dim=1)
@@ -213,7 +215,7 @@ class GSVNet_Trainer(Trainer):
             else:
                 output_flow = self.ofnet(input_flow)
             
-            output_flow = self.bilinear(output_flow, (height//8, width//8))
+            output_flow = self.bilinear(output_flow, (height//scale, width//scale))
             merge_input = torch.cat((pred_ref, previous_image_lowres),dim=1)
             mc_out = self.mc_layer(merge_input.unsqueeze(1), output_flow)
             mc_output = mc_out[:,:19,:,:]
@@ -271,7 +273,7 @@ class GSVNet_Trainer(Trainer):
                 # scale_factor_low, scale_factor_high, height, width, crop_height, crop_width, do_horizontal_flip
                 if self.args.use_crop:
                     transform = generate_transform_point(self.scale_factor_low, self.scale_factor_high,\
-                                                    1024, 2048, self.args.crop_height, self.args.crop_width, True)
+                                                    600, 800, self.args.crop_height, self.args.crop_width, True)
                     target = transform_map(target.unsqueeze(1), transform, interpolation_mode = 'nearest', use_crop=self.args.use_crop).long().squeeze(1)
                 else:
                     target = target.long()
@@ -358,7 +360,9 @@ class GSVNet_Trainer(Trainer):
 
                     final_pred = self.forward(images, val_idx-1, args = args, is_train = False, img_id = i)
                     #evaluate on 1024x2048
-                    final_pred = self.bilinear(final_pred, (1024, 2048))
+                    width = 2048
+                    height = 1024
+                    final_pred = self.bilinear(final_pred, (height, width))
                     map_final_pred = torch.argmax(final_pred, dim=1)
                                
                     # Gather All Results and Prediction
