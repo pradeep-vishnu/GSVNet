@@ -10,7 +10,7 @@
 
 
 # Job name
-#SBATCH -J "GSV_02"
+#SBATCH -J "GSV_sample_cityscapes_eval"
 
 # Batch output file
 #SBATCH --output GSV_02.o%J
@@ -19,9 +19,9 @@
 #SBATCH --error GSV_02.e%J
 
 
-#SBATCH --partition gpu_v100
+#SBATCH --partition gpu_p100
 
-#SBATCH --time 48:00:00
+#SBATCH --time 04:00:00
 #SBATCH --gres gpu:1
 
 
