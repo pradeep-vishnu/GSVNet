@@ -33,4 +33,4 @@ class carla_config(object):
     bisenet_resume_path = './weights/gsvnet_bisenet_r18.tar'
     swnet_resume_path = './weights/gsvnet_swnet_r18.tar'
     optical_flow_network_path = './weights/flownet.pth.tar'
-    data_path = 'gpfs1/dlocal/home/2020010/PARTAGE/vp/camvid' # put your data path here
+    data_path = 'gpfs1/dlocal/home/2020010/PARTAGE/vp/carla' # put your data path here
