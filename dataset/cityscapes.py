@@ -28,11 +28,11 @@ class cityscape_dataset(Dataset):
         self.class_map = dict(zip(self.valid_classes, range(len(self.valid_classes))))
 
         if mode == 'train' :
-            file_path = "./dataset/cityscapes/train.txt"
+            file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/train.txt"
         elif mode == 'val':
-            file_path = "./dataset/cityscapes/val.txt"
+            file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/train.txt"
         elif mode == 'test':
-            file_path = "./dataset/cityscapes/test.txt"
+            file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/train.txt"
 
         self.file_list = []
         
