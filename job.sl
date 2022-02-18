@@ -13,13 +13,13 @@
 #SBATCH -J "GSV_sample_cityscapes_eval"
 
 # Batch output file
-#SBATCH --output GSV_02.o%J
+#SBATCH --output output/GSV_02.o%J
 
 # Batch error file
-#SBATCH --error GSV_02.e%J
+#SBATCH --error output/GSV_02.e%J
 
 
-#SBATCH --partition gpu_p100
+#SBATCH --partition gpu_k80
 
 #SBATCH --time 04:00:00
 #SBATCH --gres gpu:1
@@ -48,7 +48,7 @@ echo Working directory : $PWD
 srun python3 ~/repos/GSVNet/main.py
 
 # Move output data to target directory
-mkdir $SLURM_SUBMIT_DIR/$SLURM_JOB_ID
-mv *.pth *.png $SLURM_SUBMIT_DIR/$SLURM_JOB_ID
+mkdir $SLURM_SUBMIT_DIR/output/$SLURM_JOB_ID/
+mv *.pth *.png $SLURM_SUBMIT_DIR/output/$SLURM_JOB_ID
 
-sacct --format=AllocCPUs,AveCPU,MaxRSS,MaxVMSize,JobName -j $SLURM_JOB_ID
+sacct --format=AllocCPUs,AveCPU,MaxRSS,MaxVMSize,JobName -j computed/$SLURM_JOB_ID
