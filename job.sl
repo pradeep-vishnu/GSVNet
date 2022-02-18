@@ -35,7 +35,7 @@
 # environments
 # -----
 
-module load python3-DL/3.6.9
+module load python3-DL/3.8.5
 
 # ---------------------------------
 
