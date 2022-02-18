@@ -30,9 +30,9 @@ class cityscape_dataset(Dataset):
         if mode == 'train' :
             file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/train.txt"
         elif mode == 'val':
-            file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/train.txt"
+            file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/val.txt"
         elif mode == 'test':
-            file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/train.txt"
+            file_path = "/gpfs1/home/2018015/mgrass01/repos/GSVNet/dataset/cityscapes/test.txt"
 
         self.file_list = []
         
