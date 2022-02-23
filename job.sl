@@ -31,7 +31,7 @@
 # -----
 #SBATCH --mail-type ALL
 # User e-mail address
-##SBATCH --mail-user marcos.grassi@groupe-esigelec.org
+##SBATCH --mail-user vishnu.pradeep@esigelec.fr
 # environments
 # -----
 
