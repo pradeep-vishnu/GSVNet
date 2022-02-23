@@ -45,7 +45,7 @@ cd $LOCAL_WORK_DIR
 echo Working directory : $PWD
 
 #add wanted options on the next line
-srun python3 ~/repos/GSVNet/main.py
+srun python3 ~/repos/GSVNet/train.py
 
 # Move output data to target directory
 mkdir $SLURM_SUBMIT_DIR/output/$SLURM_JOB_ID/
