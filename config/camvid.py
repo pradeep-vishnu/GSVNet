@@ -19,12 +19,12 @@ class camvid_config(object):
         ('Bicyclist', (0, 128, 192), 10),  # 10
         ('Void', (0, 0, 0), ignore_index),  # 11
     ]
-    swnet_weight_path = '/gpfs1/home/2018015/mgrass01/repos/GSVNet/weights/cityscapes-swnet-R18.pt'
-    bsnet_weight_path = '/gpfs1/home/2018015/mgrass01/repos/GSVNet/weights/cityscapes-bisenet-R18.pth'
+    swnet_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-swnet-R18.pt'
+    bsnet_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-bisenet-R18.pth'
 
 
-    bisenet_resume_path = '/gpfs1/home/2018015/mgrass01/repos/GSVNet/weights/gsvnet_bisenet_r18.tar'
-    swnet_resume_path = '/gpfs1/home/2018015/mgrass01/repos/GSVNet/weights/gsvnet_swnet_r18.tar'
+    bisenet_resume_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/gsvnet_bisenet_r18.tar'
+    swnet_resume_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/gsvnet_swnet_r18.tar'
 
-    optical_flow_network_path = '/gpfs1/home/2018015/mgrass01/repos/GSVNet/weights/flownet.pth.tar'
+    optical_flow_network_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/flownet.pth.tar'
     data_path = '/gpfs1/dlocal/home/2018015/PARTAGE/dataset/camvid' #put your data path here
