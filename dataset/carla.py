@@ -26,11 +26,11 @@ class carla_dataset(Dataset):
         self.class_map = dict(zip(self.valid_classes, range(len(self.valid_classes))))
 
         if mode == 'train' :
-            file_path = "./dataset/carla/train.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/carla/train.txt"
         elif mode == 'val':
-            file_path = "./dataset/carla/val.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/carla/val.txt"
         elif mode == 'test':
-            file_path = "./dataset/carla/test.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/carla/test.txt"
 
         self.file_list = []
         

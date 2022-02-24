@@ -21,8 +21,8 @@
 
 #SBATCH --partition gpu_k80
 
-#SBATCH --time 04:00:00
-#SBATCH --gres gpu:1
+#SBATCH --time 48:00:00
+#SBATCH --gres gpu:2
 
 
 #SBATCH --cpus-per-task 4
@@ -45,7 +45,7 @@ cd $LOCAL_WORK_DIR
 echo Working directory : $PWD
 
 #add wanted options on the next line
-srun python3 ~/repos/GSVNet/train.py
+srun python -m ~/repos/GSVNet/main.py torch.distributed.launch python3 main.py --segnet swiftnet --dataset carla --valdataset cityscapes --optical-flow-network flownet --checkname GSV_02
 
 # Move output data to target directory
 mkdir $SLURM_SUBMIT_DIR/output/$SLURM_JOB_ID/

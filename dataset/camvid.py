@@ -33,11 +33,11 @@ class camvid_dataset(Dataset):
         self.class_map = dict(zip(self.valid_classes, range(len(self.valid_classes))))
 
         if mode == 'train' :
-            file_path = "./dataset/camvid/train.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/camvid/train.txt"
         elif mode == 'val':
-            file_path = "./dataset/camvid/val.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/camvid/val.txt"
         elif mode == 'test':
-            file_path = "./dataset/camvid/test.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/camvid/test.txt"
         
         self.file_list = []
         with open(file_path, "r") as f :
