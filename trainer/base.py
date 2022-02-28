@@ -10,6 +10,7 @@ from util.general import init_random_seed, pretty_print, gettime
 from config.cityscapes import cityscapes_config
 from config.camvid import camvid_config
 from config.carla import carla_config
+from config.kitty import kitty_config
 from dataset.cityscapes import cityscape_dataset
 from dataset.camvid import camvid_dataset
 from dataset.carla import carla_dataset
