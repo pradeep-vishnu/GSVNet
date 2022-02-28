@@ -13,6 +13,7 @@ from config.carla import carla_config
 from dataset.cityscapes import cityscape_dataset
 from dataset.camvid import camvid_dataset
 from dataset.carla import carla_dataset
+from dataset.kitty import kitty_dataset
 try:
     from apex.parallel import DistributedDataParallel, SyncBatchNorm
 except ImportError:
@@ -93,12 +94,21 @@ class Trainer(object):
         if args.dataset == 'cityscapes' and args.valdataset =='same':
             dataset_train = cityscape_dataset
             dataset_val = cityscape_dataset
+        if args.dataset == 'kitty' and args.valdataset =='same':
+            dataset_train = kitty_dataset
+            dataset_val = kitty_dataset
         if args.dataset == 'cityscapes' and args.valdataset =='carla':
             dataset_train = cityscape_dataset
             dataset_val= carla_dataset
         if args.dataset == 'carla' and args.valdataset =='cityscapes':
             dataset_train = carla_dataset
-            dataset_val = cityscape_dataset            
+            dataset_val = cityscape_dataset  
+        if args.dataset == 'carla' and args.valdataset =='kitty':
+            dataset_train = carla_dataset
+            dataset_val = kitty_dataset    
+        if args.dataset == 'cityscapes' and args.valdataset =='kitty':
+            dataset_train = cityscape_dataset
+            dataset_val= kitty_dataset      
 
         for step in args.multi_step:
             train_dataset.append(
@@ -190,6 +200,12 @@ class Trainer(object):
         elif args.dataset == "cityscapes"and args.valdataset == 'carla':
             self.traindataset_config = cityscapes_config()
             self.valdataset_config = carla_config()
+        elif args.dataset == "cityscapes"and args.valdataset == 'kitty':
+            self.traindataset_config = cityscapes_config()
+            self.valdataset_config = kitty_config()
+        elif args.dataset == "carla" and args.valdataset == 'kitty':
+            self.traindataset_config = carla_config()
+            self.valdataset_config = kitty_config()
         else:
             raise NotImplementedError("Trainer dataset %s is not registered into the system" % args.dataset)
         
