@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Slurm submission script, 
 # GPU job 
 # CRIHAN v 1.00 - Jan 2017 
