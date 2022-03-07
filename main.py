@@ -54,7 +54,7 @@ parser.add_argument('--log-folder', type=str, help="Log folder", default='./logs
 parser.add_argument('--reset-optimizer', type=str2bool, help="(Fixed)", default='1')
 parser.add_argument('--reset-best-pred', type=str2bool, help="reset miou(initialize only): 1 , don't reset miou(continue model for finetuning): 0", default='1')
 parser.add_argument('--resume', type=str2bool, default='0', help="Initialize model")
-parser.add_argument('--visualization', type=str2bool, default=0, help='to visualize predictions')
+parser.add_argument('--visualization', type=str2bool, default=1, help='to visualize predictions')
 
 args = parser.parse_args()
 
