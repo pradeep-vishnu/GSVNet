@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Slurm submission script, 
 # GPU job 
 # CRIHAN v 1.00 - Jan 2017 
@@ -10,13 +8,13 @@
 
 
 # Job name
-#SBATCH -J "GSV_sample_cityscapes_eval"
+#SBATCH -J "GSV_06_S"
 
 # Batch output file
-#SBATCH --output output/GSV_02.o%J
+#SBATCH --output output/GSV.o%J
 
 # Batch error file
-#SBATCH --error output/GSV_02.e%J
+#SBATCH --error output/GSV.e%J
 
 
 #SBATCH --partition gpu_k80
@@ -45,10 +43,10 @@ cd $LOCAL_WORK_DIR
 echo Working directory : $PWD
 
 #add wanted options on the next line
-srun python -m ~/repos/GSVNet/main.py torch.distributed.launch python3 main.py --segnet swiftnet --dataset carla --valdataset cityscapes --optical-flow-network flownet --checkname GSV_02
+srun python -m torch.distributed.launch ~/repos/GSVNet/main.py  --segnet swiftnet --dataset carla --valdataset cityscapes --optical-flow-network flownet --checkname GSV_06_S
 
 # Move output data to target directory
-mkdir $SLURM_SUBMIT_DIR/output/$SLURM_JOB_ID/
-mv *.pth *.png $SLURM_SUBMIT_DIR/output/$SLURM_JOB_ID
+mv *.pth *.png $SLURM_SUBMIT_DIR/output/
 
-sacct --format=AllocCPUs,AveCPU,MaxRSS,MaxVMSize,JobName -j computed/$SLURM_JOB_ID
+sacct --format=AllocCPUs,AveCPU,MaxRSS,MaxVMSize,JobName -j $SLURM_JOB_ID
+
