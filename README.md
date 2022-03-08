@@ -78,9 +78,7 @@ Modify the data_path in config/cityscapes.py
 ## Training of GSVNet
 
 ```
-CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --master_port 1111 \ 
---nproc_per_node 2 python main.py --segnet <segnet_name> --dataset <dataset_name> \
---optical-flow-network <of_name> --checkname <SAVE_DIR>
+CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --master_port 1111 --nproc_per_node 2 main.py --segnet <segnet_name> --dataset <dataset_name> --optical-flow-network <of_name> --checkname <SAVE_DIR>
 ```
 
 <segnet_name> = swiftnet/bisenet
