@@ -6,7 +6,7 @@ import torchvision.transforms as standard_transforms
 from torchvision.datasets.folder import default_loader
 
 
-class carla_dataset(Dataset):
+class mapillary_dataset(Dataset):
     def __init__(self, config, mode = 'train', interval = 0, label_transform = standard_transforms.ToTensor(), img_transform = standard_transforms.ToTensor(), bi_direction = False):
         self.mode = mode
         if interval < 0 :
@@ -26,11 +26,11 @@ class carla_dataset(Dataset):
         self.class_map = dict(zip(self.valid_classes, range(len(self.valid_classes))))
 
         if mode == 'train' :
-            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/carla/train.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/mapillary/train.txt"
         elif mode == 'val':
-            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/carla/val.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/mapillary/val.txt"
         elif mode == 'test':
-            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/carla/test.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/mapillary/test.txt"
 
         self.file_list = []
         
@@ -40,7 +40,7 @@ class carla_dataset(Dataset):
                 label_path = line.split(" ")[1].split("/")[2]
                 file_name = string[:-4]
                 back_address = string[-4:]
-                frame_idx = 1 #All frames in Carla are annotated
+                frame_idx = 2 #All frames are annotated
                 file_name = self.data_path+file_name[:-5]
                 element = (file_name, int(frame_idx)-interval, back_address, label_path)
                 self.file_list.append(element)
@@ -86,6 +86,6 @@ class carla_dataset(Dataset):
             return mask
 
 if __name__ == '__main__':
-    dataset = carla_dataset(mode = 'train', interval = 1)
+    dataset = mapillary_dataset(mode = 'train', interval = 1)
     for i in range(10):
         print(dataset[i])
