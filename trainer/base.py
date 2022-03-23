@@ -10,11 +10,13 @@ from util.general import init_random_seed, pretty_print, gettime
 from config.cityscapes import cityscapes_config
 from config.camvid import camvid_config
 from config.carla import carla_config
+from config.mapillary import mapillary_config
 from config.kitty import kitty_config
 from dataset.cityscapes import cityscape_dataset
 from dataset.camvid import camvid_dataset
 from dataset.carla import carla_dataset
 from dataset.kitty import kitty_dataset
+from dataset.mapillary import mapillary_dataset
 try:
     from apex.parallel import DistributedDataParallel, SyncBatchNorm
 except ImportError:
@@ -109,7 +111,10 @@ class Trainer(object):
             dataset_val = kitty_dataset    
         if args.dataset == 'cityscapes' and args.valdataset =='kitty':
             dataset_train = cityscape_dataset
-            dataset_val= kitty_dataset      
+            dataset_val= kitty_dataset
+        if args.dataset == 'mapillary' and args.valdataset =='same':
+            dataset_train = mapillary_dataset
+            dataset_val= mapillary_dataset 
 
         for step in args.multi_step:
             train_dataset.append(
