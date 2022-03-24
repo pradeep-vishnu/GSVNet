@@ -40,7 +40,7 @@ class mapillary_dataset(Dataset):
                 label_path = line.split(" ")[1].split("/")[2]
                 file_name = string[:-4]
                 back_address = string[-4:]
-                frame_idx = 2 #All frames are annotated
+                frame_idx = 4 #All frames are annotated
                 file_name = self.data_path+file_name[:-5]
                 element = (file_name, int(frame_idx)-interval, back_address, label_path)
                 self.file_list.append(element)
