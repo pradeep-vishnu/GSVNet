@@ -362,9 +362,9 @@ class GSVNet_Trainer(Trainer):
                     #evaluate on 1024x2048
                     width = 2048
                     height = 1024
-                    if args.valdataset == 'kitty':
-                        width = 1242
-                        height = 375
+                    if args.valdataset == 'gta':
+                        width = 1914
+                        height = 1052
                         
                     final_pred = self.bilinear(final_pred, (height, width))
                     map_final_pred = torch.argmax(final_pred, dim=1)

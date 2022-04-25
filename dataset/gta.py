@@ -3,11 +3,10 @@ from torch.utils.data import Dataset
 import os
 import numpy as np
 import torchvision.transforms as standard_transforms
-#from config import get_config
 from torchvision.datasets.folder import default_loader
 
 
-class kitty_dataset(Dataset):
+class gta_dataset(Dataset):
     def __init__(self, config, mode = 'train', interval = 0, label_transform = standard_transforms.ToTensor(), img_transform = standard_transforms.ToTensor(), bi_direction = False):
         self.mode = mode
         if interval < 0 :
@@ -27,23 +26,22 @@ class kitty_dataset(Dataset):
         self.class_map = dict(zip(self.valid_classes, range(len(self.valid_classes))))
 
         if mode == 'train' :
-            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/kitty/train.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/gta/train.txt"
         elif mode == 'val':
-            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/kitty/val.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/gta/val.txt"
         elif mode == 'test':
-            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/kitty/test.txt"
+            file_path = "/gpfs1/home/2018015/vprade01/repos/GSVNet/dataset/gta/test.txt"
 
         self.file_list = []
         
-
         with open(file_path, "r") as f :
             for line in f:
                 string = line.split(" ")[0]
-                label_path = line.split(" ")[1][:-1].split("/")[3]
-                file_name = string[:-16]
-                back_address = string[-16:]
-                frame_idx = file_name[-6:]
-                file_name = self.data_path+file_name[:-6]
+                label_path = line.split(" ")[1].split("/")[2]
+                file_name = string[:-4]
+                back_address = string[-4:]
+                frame_idx = 1 
+                file_name = self.data_path+file_name[:-5]
                 element = (file_name, int(frame_idx)-interval, back_address, label_path)
                 self.file_list.append(element)
         
@@ -61,14 +59,14 @@ class kitty_dataset(Dataset):
                 frame_num = (start_frame+i) ### forward
             
             img = default_loader(   os.path.join
-                                (file_name + "{:06d}".format(frame_num) + back_address))   
+                                (file_name + "{:05d}".format(frame_num) + back_address))   
             img = self.img_transform(img)
             imgs.append((img))
             idxes.append(frame_num)
         
         if (self.mode != 'test') and (self.mode != 'video'):
             label = default_loader(os.path.join
-                                (self.data_path+"gtFine", self.mode, label_path.split("_")[0], label_path)
+                                (self.data_path+"anot", self.mode,label_path)
                                 )
             #label = self.label_transform(label)
             #print(label.shape)
@@ -88,6 +86,6 @@ class kitty_dataset(Dataset):
             return mask
 
 if __name__ == '__main__':
-    dataset = kitty_dataset(mode = 'train', interval = 1)
+    dataset = gta_dataset(mode = 'train', interval = 1)
     for i in range(10):
         print(dataset[i])

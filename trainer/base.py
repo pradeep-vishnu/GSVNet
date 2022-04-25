@@ -10,13 +10,11 @@ from util.general import init_random_seed, pretty_print, gettime
 from config.cityscapes import cityscapes_config
 from config.camvid import camvid_config
 from config.carla import carla_config
-from config.mapillary import mapillary_config
-from config.kitty import kitty_config
+from config.gta import gta_config
 from dataset.cityscapes import cityscape_dataset
 from dataset.camvid import camvid_dataset
 from dataset.carla import carla_dataset
-from dataset.kitty import kitty_dataset
-from dataset.mapillary import mapillary_dataset
+from dataset.gta import gta_dataset
 try:
     from apex.parallel import DistributedDataParallel, SyncBatchNorm
 except ImportError:
@@ -97,24 +95,24 @@ class Trainer(object):
         if args.dataset == 'cityscapes' and args.valdataset =='same':
             dataset_train = cityscape_dataset
             dataset_val = cityscape_dataset
-        if args.dataset == 'kitty' and args.valdataset =='same':
-            dataset_train = kitty_dataset
-            dataset_val = kitty_dataset
+        if args.dataset == 'gta' and args.valdataset =='same':
+            dataset_train = gta_dataset
+            dataset_val = gta_dataset
         if args.dataset == 'cityscapes' and args.valdataset =='carla':
             dataset_train = cityscape_dataset
             dataset_val= carla_dataset
         if args.dataset == 'carla' and args.valdataset =='cityscapes':
             dataset_train = carla_dataset
             dataset_val = cityscape_dataset  
-        if args.dataset == 'carla' and args.valdataset =='kitty':
+        if args.dataset == 'carla' and args.valdataset =='gta':
             dataset_train = carla_dataset
-            dataset_val = kitty_dataset    
-        if args.dataset == 'cityscapes' and args.valdataset =='kitty':
+            dataset_val = gta_dataset    
+        if args.dataset == 'cityscapes' and args.valdataset =='gta':
             dataset_train = cityscape_dataset
-            dataset_val= kitty_dataset
-        if args.dataset == 'mapillary' and args.valdataset =='same':
-            dataset_train = mapillary_dataset
-            dataset_val= mapillary_dataset 
+            dataset_val= gta_dataset
+        if args.dataset == 'gta' and args.valdataset =='cityscapes':
+            dataset_train = gta_dataset
+            dataset_val = cityscape_dataset 
 
         for step in args.multi_step:
             train_dataset.append(
@@ -209,12 +207,12 @@ class Trainer(object):
         elif args.dataset == "cityscapes"and args.valdataset == 'carla':
             self.traindataset_config = cityscapes_config()
             self.valdataset_config = carla_config()
-        elif args.dataset == "cityscapes"and args.valdataset == 'kitty':
+        elif args.dataset == "cityscapes"and args.valdataset == 'gta':
             self.traindataset_config = cityscapes_config()
-            self.valdataset_config = kitty_config()
-        elif args.dataset == "carla" and args.valdataset == 'kitty':
+            self.valdataset_config = gta_config()
+        elif args.dataset == "carla" and args.valdataset == 'gta':
             self.traindataset_config = carla_config()
-            self.valdataset_config = kitty_config()
+            self.valdataset_config = gta_config()
         else:
             raise NotImplementedError("Trainer dataset %s is not registered into the system" % args.dataset)
         

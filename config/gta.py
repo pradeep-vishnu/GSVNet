@@ -1,4 +1,4 @@
-class kitty_config(object):
+class gta_config(object):
     weights = [ 3.03871497 , 13.01999212, 4.53008444 , 38.00898985, 35.35990217,
                 31.14247824, 45.82106668, 39.44451896, 6.00002668 , 32.64759009,
                 17.34725897, 31.45715227, 47.0853521 , 11.70166965, 44.50966853,
@@ -27,9 +27,10 @@ class kitty_config(object):
         ('bicycle', (119, 11, 32), 18),
         ('void', (0, 0, 0), ignore_index)
     ]  # 19 classes + 1 void class
+
     swnet_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-swnet-R18.pt'
     bsnet_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-bisenet-R18.pth'
     bisenet_resume_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/gsvnet_bisenet_r18.tar'
     swnet_resume_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/gsvnet_swnet_r18.tar'
     optical_flow_network_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/flownet.pth.tar'
-    data_path = '/gpfs1/dlocal/home/2018015/PARTAGE/dataset/kitty/' # put your data path here
+    data_path = '/gpfs1/dlocal/home/2018015/PARTAGE/dataset/gta/' # put your data path here
