@@ -198,9 +198,9 @@ class Trainer(object):
         elif args.dataset == "camvid"and args.valdataset == 'same':
             self.traindataset_config = camvid_config() 
             self.valdataset_config = camvid_config() 
-        elif args.dataset == "mapillary"and args.valdataset == 'same':
-            self.traindataset_config = mapillary_config() 
-            self.valdataset_config = mapillary_config() 
+        elif args.dataset == "gta"and args.valdataset == 'same':
+            self.traindataset_config = gta_config() 
+            self.valdataset_config = gta_config() 
         elif args.dataset == "carla" and args.valdataset == 'cityscapes':
             self.traindataset_config = carla_config()
             self.valdataset_config = cityscapes_config()
@@ -210,7 +210,7 @@ class Trainer(object):
         elif args.dataset == "cityscapes"and args.valdataset == 'gta':
             self.traindataset_config = cityscapes_config()
             self.valdataset_config = gta_config()
-        elif args.dataset == "carla" and args.valdataset == 'gta':
+        elif args.dataset == "gta" and args.valdataset == 'cityscapes':
             self.traindataset_config = carla_config()
             self.valdataset_config = gta_config()
         else:
