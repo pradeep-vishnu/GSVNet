@@ -211,8 +211,8 @@ class Trainer(object):
             self.traindataset_config = cityscapes_config()
             self.valdataset_config = gta_config()
         elif args.dataset == "gta" and args.valdataset == 'cityscapes':
-            self.traindataset_config = carla_config()
-            self.valdataset_config = gta_config()
+            self.traindataset_config = gta_config()
+            self.valdataset_config = cityscapes_config()
         else:
             raise NotImplementedError("Trainer dataset %s is not registered into the system" % args.dataset)
         

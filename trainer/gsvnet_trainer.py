@@ -171,7 +171,7 @@ class GSVNet_Trainer(Trainer):
     def forward(self, images, loader_idx, args, is_train = False, transform = None, img_id = 0):
         previous_pred = None
         #use scale_factor = 8 
-        scale = 8 
+        scale = 10 
         for ref_idx, image in enumerate(images):
             image = image.cuda(non_blocking = True)
 
@@ -359,7 +359,6 @@ class GSVNet_Trainer(Trainer):
                     target = target.long().cuda(non_blocking=True)
 
                     final_pred = self.forward(images, val_idx-1, args = args, is_train = False, img_id = i)
-                    #evaluate on 1024x2048
                     width = 2048
                     height = 1024
                     if args.valdataset == 'gta':
