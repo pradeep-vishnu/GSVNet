@@ -40,9 +40,9 @@ class carla_dataset(Dataset):
                 label_path = line.split(" ")[1].split("/")[2]
                 file_name = string[:-4]
                 back_address = string[-4:]
-                frame_idx = 1 #All frames in Carla are annotated
+                frame_idx =  file_name[-5:]
                 file_name = self.data_path+file_name[:-5]
-                element = (file_name, int(frame_idx)-interval, back_address, label_path)
+                element = (file_name, int(frame_idx), back_address, label_path)
                 self.file_list.append(element)
         
     def __len__(self):

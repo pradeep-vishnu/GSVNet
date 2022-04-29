@@ -10,19 +10,19 @@
 
 
 # Job name
-#SBATCH -J "GSV_06_S"
+#SBATCH -J "gsv_gta"
 
 # Batch output file
-#SBATCH --output output/GSV.o%J
+#SBATCH --output output/gsv.o%J
 
 # Batch error file
-#SBATCH --error output/GSV.e%J
+#SBATCH --error output/gsv.e%J
 
 
 #SBATCH --partition gpu_k80
 
 #SBATCH --time 48:00:00
-#SBATCH --gres gpu:2
+#SBATCH --gres gpu:1
 
 
 #SBATCH --cpus-per-task 4
