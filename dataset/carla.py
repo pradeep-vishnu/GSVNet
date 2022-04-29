@@ -49,7 +49,7 @@ class carla_dataset(Dataset):
         return len(self.file_list)
     def __getitem__(self, idx):
         file_name, start_frame, back_address, label_path = self.file_list[idx]
-
+        self.reverse = False
         imgs = []
         idxes = []
         for i in range(self.interval+1):
