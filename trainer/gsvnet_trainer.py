@@ -171,7 +171,7 @@ class GSVNet_Trainer(Trainer):
     def forward(self, images, loader_idx, args, is_train = False, transform = None, img_id = 0):
         previous_pred = None
         #use scale_factor = 8 
-        scale = 10 
+        scale = 6 
         for ref_idx, image in enumerate(images):
             image = image.cuda(non_blocking = True)
 
