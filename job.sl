@@ -43,7 +43,7 @@ cd $LOCAL_WORK_DIR
 echo Working directory : $PWD
 
 #add wanted options on the next line
-srun python -m torch.distributed.launch ~/repos/GSVNet/main.py  --segnet swiftnet --dataset carla --valdataset cityscapes --optical-flow-network flownet --checkname GSV_06_S
+srun python -m torch.distributed.launch ~/repos/GSVNet/main.py  --segnet swiftnet --dataset gta --valdataset same --optical-flow-network flownet --checkname GSV_06_S
 
 # Move output data to target directory
 mv *.o *.e $SLURM_SUBMIT_DIR/output/
