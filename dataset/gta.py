@@ -42,7 +42,7 @@ class gta_dataset(Dataset):
                 back_address = string[-4:]
                 frame_idx =  file_name[-5:]
                 file_name = self.data_path+file_name[:-5]
-                element = (file_name, int(frame_idx)-interval, back_address, label_path)
+                element = (file_name, int(frame_idx), back_address, label_path)
                 self.file_list.append(element)
         
     def __len__(self):
