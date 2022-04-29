@@ -39,8 +39,6 @@ module load python3-DL/3.8.5
 
 # ---------------------------------
 
-
-cp -ar PyTorch-ENet  $LOCAL_WORK_DIR
 cd $LOCAL_WORK_DIR
 echo Working directory : $PWD
 
@@ -48,7 +46,7 @@ echo Working directory : $PWD
 srun python -m torch.distributed.launch ~/repos/GSVNet/main.py  --segnet swiftnet --dataset carla --valdataset cityscapes --optical-flow-network flownet --checkname GSV_06_S
 
 # Move output data to target directory
-mv *.pth *.png $SLURM_SUBMIT_DIR/output/
+mv *.o *.e $SLURM_SUBMIT_DIR/output/
 
 sacct --format=AllocCPUs,AveCPU,MaxRSS,MaxVMSize,JobName -j $SLURM_JOB_ID
 
