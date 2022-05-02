@@ -183,7 +183,7 @@ class GSVNet_Trainer(Trainer):
             if ref_idx == 0:
                 if not is_train:
                     #use scale_factor = 0.75 while inference
-                    low_res_image = self.bilinear(image, (height//4*3, width//4*3))
+                    low_res_image = self.bilinear(image, (height//self.scale, width//self.scale))
                 else:
                     low_res_image = image
                 
