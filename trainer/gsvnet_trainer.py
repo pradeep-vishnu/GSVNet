@@ -363,7 +363,7 @@ class GSVNet_Trainer(Trainer):
                     height = 1024
                     self.scale = 8
                     if args.valdataset == 'gta':
-                        self.scale = 6
+                        self.scale = 7.47
                         width = 1914
                         height = 1052
                         
