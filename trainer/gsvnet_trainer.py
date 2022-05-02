@@ -170,8 +170,7 @@ class GSVNet_Trainer(Trainer):
 
     def forward(self, images, loader_idx, args, is_train = False, transform = None, img_id = 0):
         previous_pred = None
-        #use scale_factor = 8 
-        scale = 6 
+
         for ref_idx, image in enumerate(images):
             image = image.cuda(non_blocking = True)
 
@@ -192,7 +191,7 @@ class GSVNet_Trainer(Trainer):
                 with torch.no_grad():
                     pred_ref = self.segnet(low_res_image)
                 #resize image
-                pred_ref = self.bilinear(pred_ref, (height//scale, width//scale))
+                pred_ref = self.bilinear(pred_ref, (height//self.scale, width//self.scale))
                 
                 previous_image = image
                 previous_pred = pred_ref
@@ -201,8 +200,8 @@ class GSVNet_Trainer(Trainer):
             else:
                 pred_ref = previous_pred
     
-            target_image_lowres = self.bilinear(image, (height//scale, width//scale))
-            previous_image_lowres = self.bilinear(previous_image, (height//scale, width//scale))
+            target_image_lowres = self.bilinear(image, (height//self.scale, width//self.scale))
+            previous_image_lowres = self.bilinear(previous_image, (height//self.scale, width//self.scale))
             
             if self.args.optical_flow_network == 'light':
                 input_flow = torch.cat([target_image_lowres, previous_image_lowres], dim=1)
@@ -215,7 +214,7 @@ class GSVNet_Trainer(Trainer):
             else:
                 output_flow = self.ofnet(input_flow)
             
-            output_flow = self.bilinear(output_flow, (height//scale, width//scale))
+            output_flow = self.bilinear(output_flow, (height//self.scale, width//self.scale))
             merge_input = torch.cat((pred_ref, previous_image_lowres),dim=1)
             mc_out = self.mc_layer(merge_input.unsqueeze(1), output_flow)
             mc_output = mc_out[:,:19,:,:]
@@ -361,7 +360,9 @@ class GSVNet_Trainer(Trainer):
                     final_pred = self.forward(images, val_idx-1, args = args, is_train = False, img_id = i)
                     width = 2048
                     height = 1024
+                    self.scale = 8
                     if args.valdataset == 'gta':
+                        self.scale = 6
                         width = 1914
                         height = 1052
                         
