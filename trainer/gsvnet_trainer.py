@@ -32,6 +32,7 @@ class GSVNet_Trainer(Trainer):
         super().__init__(args, args.segnet + "_" + args.checkname)
         self.evaluator_single = Evaluator(self.num_classes)
         self.scale_factor_low, self.scale_factor_high = 0.5, 1.5
+        self.scale = 8
 
         if not isinstance(self.train_loader, list):
             self.train_loader = [self.train_loader]
