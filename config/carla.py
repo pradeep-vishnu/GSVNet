@@ -30,6 +30,13 @@ class carla_config(object):
 
     swnet_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-swnet-R18.pt'
     bsnet_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-bisenet-R18.pth'
+
+    bsnet_x39_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-bisenet-X39.pth'
+    bsnet_r101_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-bisenet-R101.pth'
+    dfn_r101_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/cityscapes-dfn-R101_v1c.ohem.pth'
+    dfn_raw_weight_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/voc-dfn-R101_v1c.pth'
+
+
     bisenet_resume_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/gsvnet_bisenet_r18.tar'
     swnet_resume_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/gsvnet_swnet_r18.tar'
     optical_flow_network_path = '/gpfs1/home/2018015/vprade01/repos/GSVNet/weights/flownet.pth.tar'
