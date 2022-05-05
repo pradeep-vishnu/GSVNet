@@ -40,7 +40,11 @@ module load python3-DL/3.8.5
 # ---------------------------------
 
 # srun
-srun python -m torch.distributed.launch ~/repos/GSVNet/main.py --segnet swiftnet --dataset gta --valdataset same --optical-flow-network flownet
+srun python -m torch.distributed.launch ~/repos/GSVNet/main.py \
+--segnet swiftnet \
+--dataset gta \
+--valdataset same \
+--optical-flow-network flownet
 
 #srun python -m ~/repos/GSVNet/main.py/main.py --evaluate 1 --batch-size 1 --resume 1 --dataset gta
 
