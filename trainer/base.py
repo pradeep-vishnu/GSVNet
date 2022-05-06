@@ -221,7 +221,7 @@ class Trainer(object):
         self.color_classes = self.dataset_config.color_classes
         self.num_classes = self.dataset_config.num_classes
         self.swnet_weight_path = self.dataset_config.swnet_weight_path
-        self.bsnet_weight_path = self.dataset_config.bsnet_r101_weight_path ###  changed
+        self.bsnet_weight_path = self.dataset_config.bsnet_weight_path ###  changed
         self.swnet_resume_path = self.dataset_config.swnet_resume_path
         self.bisenet_resume_path = self.dataset_config.bisenet_resume_path
         self.optical_flow_network_path = self.dataset_config.optical_flow_network_path
