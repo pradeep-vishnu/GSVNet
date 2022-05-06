@@ -364,8 +364,8 @@ class GSVNet_Trainer(Trainer):
                     self.scale = 8
                     if args.valdataset == 'gta':
                         self.scale = 7.47
-                        width = 1914
-                        height = 1052
+                        width = 2048
+                        height = 1024
                         
                     final_pred = self.bilinear(final_pred, (height, width))
                     map_final_pred = torch.argmax(final_pred, dim=1)
