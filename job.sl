@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # Slurm submission script, 
 # GPU job 
@@ -10,7 +9,7 @@
 
 
 # Job name
-#SBATCH -J "gsv_gta"
+#SBATCH -J "gsv_19"
 
 # Batch output file
 #SBATCH --output output/gsv.o%J
@@ -22,7 +21,7 @@
 #SBATCH --partition gpu_k80
 
 #SBATCH --time 48:00:00
-#SBATCH --gres gpu:4
+#SBATCH --gres gpu:1
 
 
 #SBATCH --cpus-per-task 4
@@ -40,16 +39,19 @@ module load python3-DL/3.8.5
 # ---------------------------------
 
 # srun
-srun python -m torch.distributed.launch ~/repos/GSVNet/main.py \
+CUDA_VISIBLE_DEVICES=1 srun python -m torch.distributed.launch ~/repos/GSVNet/main.py \
 --segnet swiftnet \
 --dataset gta \
 --valdataset same \
---optical-flow-network flownet
+--optical-flow-network flownet \
+--checkname gsv_19 \
+--lr 0.01
 
-#srun python -m ~/repos/GSVNet/main.py/main.py --evaluate 1 --batch-size 1 --resume 1 --dataset gta
+# srun python -m ~/repos/GSVNet/main.py --evaluate 1 --resume 1 --dataset gta
 
 # output
 mv *.o *.e $SLURM_SUBMIT_DIR/output/
 
 sacct --format=AllocCPUs,AveCPU,MaxRSS,MaxVMSize,JobName -j $SLURM_JOB_ID
+
 
