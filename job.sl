@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Slurm submission script, 
 # GPU job 

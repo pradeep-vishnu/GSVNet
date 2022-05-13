@@ -19,8 +19,8 @@ class carla_dataset(Dataset):
         self.img_transform = img_transform
         self.label_transform = label_transform
         self.bi_direction = bi_direction
-        self.void_classes = [0, 1, 2, 3, 4, 5, 6, 9, 10, 14, 15, 16, 18, 29, 30, -1]
-        self.valid_classes = [ 7,  8,  11, 12,13, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33] # we have 19 classes + 1 void class
+        self.void_classes = [14,15,16,23,24,25,26,27,28,29,30,31,32,33]
+        self.valid_classes = [ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 17, 18, 19, 20, 21, 22] # we have 19 classes + 1 void class
         self.ignore_index = config.ignore_index
         self.data_path = config.data_path
         self.class_map = dict(zip(self.valid_classes, range(len(self.valid_classes))))
