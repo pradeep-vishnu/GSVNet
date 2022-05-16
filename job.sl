@@ -8,7 +8,6 @@
 #shared ressources
 ##SBATCH --share
 
-
 # Job name
 #SBATCH -J "gsv_19"
 
@@ -54,5 +53,4 @@ CUDA_VISIBLE_DEVICES=1 srun python -m torch.distributed.launch ~/repos/GSVNet/ma
 mv *.o *.e $SLURM_SUBMIT_DIR/output/
 
 sacct --format=AllocCPUs,AveCPU,MaxRSS,MaxVMSize,JobName -j $SLURM_JOB_ID
-
 

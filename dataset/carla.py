@@ -34,22 +34,23 @@ class carla_dataset(Dataset):
 
         self.file_list = []
         
+
         with open(file_path, "r") as f :
             for line in f:
                 string = line.split(" ")[0]
                 label_path = line.split(" ")[1].split("/")[2]
                 file_name = string[:-4]
                 back_address = string[-4:]
-                frame_idx =  file_name[-5:]
-                file_name = self.data_path+file_name[:-5]
-                element = (file_name, int(frame_idx), back_address, label_path)
+                frame_idx = '00019'
+                file_name = self.data_path+file_name[:-4]
+                element = (file_name, int(frame_idx)-interval, back_address, label_path)
                 self.file_list.append(element)
         
     def __len__(self):
         return len(self.file_list)
     def __getitem__(self, idx):
         file_name, start_frame, back_address, label_path = self.file_list[idx]
-        self.reverse = False
+
         imgs = []
         idxes = []
         for i in range(self.interval+1):
@@ -59,14 +60,14 @@ class carla_dataset(Dataset):
                 frame_num = (start_frame+i) ### forward
             
             img = default_loader(   os.path.join
-                                (file_name + "{:05d}".format(frame_num) + back_address))   
+                                (file_name + "{:06d}".format(frame_num) + back_address))   
             img = self.img_transform(img)
             imgs.append((img))
             idxes.append(frame_num)
         
         if (self.mode != 'test') and (self.mode != 'video'):
             label = default_loader(os.path.join
-                                (self.data_path+"anot", self.mode,label_path)
+                                (self.data_path+"gtFine", self.mode, label_path.split("_")[0], label_path)
                                 )
             #label = self.label_transform(label)
             #print(label.shape)
@@ -84,6 +85,8 @@ class carla_dataset(Dataset):
             for _validc in self.valid_classes:
                 mask[cp == _validc] = self.class_map[_validc]
             return mask
+
+
 
 if __name__ == '__main__':
     dataset = carla_dataset(mode = 'train', interval = 1)
