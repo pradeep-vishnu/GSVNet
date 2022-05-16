@@ -62,7 +62,7 @@ class cityscape_dataset(Dataset):
                 frame_num = (start_frame+i) ### forward
             
             img = default_loader(   os.path.join
-                                (file_name + "{:06d}".format(frame_num) + back_address))   
+                                (file_name + "{:05d}".format(frame_num) + back_address))   
             img = self.img_transform(img)
             imgs.append((img))
             idxes.append(frame_num)

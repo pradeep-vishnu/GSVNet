@@ -60,14 +60,14 @@ class carla_dataset(Dataset):
                 frame_num = (start_frame+i) ### forward
             
             img = default_loader(   os.path.join
-                                (file_name + "{:06d}".format(frame_num) + back_address))   
+                                (file_name + "{:04d}".format(frame_num) + back_address))   
             img = self.img_transform(img)
             imgs.append((img))
             idxes.append(frame_num)
         
         if (self.mode != 'test') and (self.mode != 'video'):
             label = default_loader(os.path.join
-                                (self.data_path+"gtFine", self.mode, label_path.split("_")[0], label_path)
+                                (self.data_path+"anot", self.mode, label_path)
                                 )
             #label = self.label_transform(label)
             #print(label.shape)
@@ -77,6 +77,7 @@ class carla_dataset(Dataset):
             return imgs, label
         else:
             return imgs, label_path
+            
     def encode_segmap(self, mask):
             # Put all void classes to zero
             cp = mask.clone()
